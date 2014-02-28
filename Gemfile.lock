@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    render_variant (0.1.0)
+    render_debug (0.1.0)
       rails (>= 3.2.0)
 
 GEM
@@ -85,5 +85,5 @@ PLATFORMS
 
 DEPENDENCIES
   rails (>= 3.2.0)
-  render_variant!
+  render_debug!
   sqlite3

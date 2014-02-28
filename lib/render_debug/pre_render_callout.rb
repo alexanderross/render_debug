@@ -5,12 +5,19 @@ module RenderDebug
       alias_method_chain :render, :callout
     end
 
-    def render_with_callout(context, options, block)
-      initial_render = render_without_callout(context, options, block)
-      if(@path)
-        "<!-- TEMPLATE : #{@path} -->#{initial_render}<!-- END TEMPLATE #{@path}-->".html_safe
+    def render_with_callout(context, options)
+      initial_render = render_without_callout(context, options)
+      tag = ""
+      if(options[:partial])
+        tag = "PARTIAL #{options[:partial]}"
+      elsif(options[:template])
+        tag = "ACTION #{options[:template]} INVOKED FROM #{context.controller.class.to_s}"
+      end
+
+      if(tag.blank?)
+        initial_render.html_safe
       else
-        "<!-- TEMPLATE : ??? -->#{initial_render}<!-- END TEMPLATE ???-->".html_safe
+        "<!-- #{tag} -->#{initial_render}<!-- END #{tag}-->".html_safe
       end
     end
   end
